@@ -88,7 +88,7 @@ You may customize the dynamically created object by specifying the canvas entry:
                 });
                 clock2.run();
 
-The 4 most important fields which it takes are: the x , y, width and height parameters.
+The 4 most important fields which it takes are: the `x , y, width and height` parameters.
 
 ### Fields of the canvas:
 
