@@ -3198,6 +3198,7 @@ function Clock(options) {
     this.monitor = new AlarmMonitor();
 
     this.end = false;
+    this.g = new Graphics(this.canvas);
 
 //    var clock = this;
 //    var canvas = this.canvas;
@@ -3297,8 +3298,7 @@ Clock.prototype.getCenterSpotWidth = function () {
 Clock.prototype.draw = function () {
 
 
-    var g = new Graphics(this.canvas);
-
+var g = this.g;
     g.setBackground(this.outerColor);
     g.fillRect(0, 0, this.diameter, this.diameter);
     g.setStrokeWidth(1);
