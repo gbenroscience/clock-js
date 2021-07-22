@@ -105,6 +105,7 @@ The 4 most important fields which it takes are: the x , y, width and height para
 If  you do not add the `floating` field at all or you set it to false, then you have to specify the canvas tag in your code, so that the clock will know what canvas to draw itself on.
 
 **For example:**
+
   `<canvas id="clock-1" style="float: left; margin-left: 10px; width: 10em; height: 10em;"></canvas>`
 
 
