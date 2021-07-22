@@ -12,6 +12,9 @@
 
 
 const DEBUG = true;
+// The default width and height of an auto-generated canvas to e used for the clock
+const DEFAULT_SIZE = 150;
+
 function logger(txt) {
     if (DEBUG === true) {
         console.log(txt);
@@ -2950,8 +2953,6 @@ function Clock(options) {
     this.innerColor = "#000";
     this.showBaseText = false;
 
-    var DEFAULT_SIZE = 150;
-
 
 // The canvas id must be specified, it is used as the DOM id of the canvas element
     if (options.canvasId) {
@@ -3028,7 +3029,6 @@ function Clock(options) {
         }
         this.floating = options.floating;
         
-            console.log("canvas: "+ this.canvas);
     } else {
         this.floating = false;
         this.canvas = document.getElementById(options.canvasId);
