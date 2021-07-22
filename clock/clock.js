@@ -2923,7 +2923,9 @@ function getErrorNotif(hh, mm, sec, description) {
  * centerSpotWidth: number,
  * outerCircleAsFractionOfFrameSize: float_zero_to_1,
  * showBaseText: false,
- * area:{
+ * canvas:{
+ * x: 100,
+ * y: 100,
  * width: 100,
  * height: 100,
  * }
@@ -2965,39 +2967,59 @@ function Clock(options) {
 
 //floating option defined, so pay attention!
     if (typeof options.floating !== 'undefined') {
-        if (typeof options.floating !== 'boolean'){
+        if (typeof options.floating !== 'boolean') {
             logger("The field called: `floating` must be a `true` or a `false`. Clock not created");
             return;
         }
         if (options.floating === true) {//creates own canvas and injects in the DOM
-            if (typeof options.area === 'undefined') {
-                logger("Please define the width and height of the canvas to be created for the clock as an options.area object. Currently setting the area to `100 X 100`");
+            if (typeof options.canvas === 'undefined') {
+                logger("Please define the width and height of the canvas to be created for the clock as an options.canvas object. Currently setting the area to `100 X 100`");
                 var area = new Object();
                 area.width = DEFAULT_SIZE;
                 area.height = DEFAULT_SIZE;
-                options['area'] = area;
+                options['canvas'] = area;
             } else {
-                if (typeof options.area.width === 'undefined') {
-                    logger("You need to define the `width` sub-field in the options.area field. Creating it for you and defaulting it to `"+DEFAULT_SIZE+"`");
-                    options.area.width = DEFAULT_SIZE;
+                if (typeof options.canvas.width === 'undefined') {
+                    logger("You need to define the `width` sub-field in the options.canvas field. Creating it for you and defaulting it to `" + DEFAULT_SIZE + "`");
+                    options.canvas.width = DEFAULT_SIZE;
                 }
-                if (typeof options.area.height === 'undefined') {
-                    logger("You need to define the `height` sub-field in the options.area field. Creating it for you and defaulting it to `"+DEFAULT_SIZE+"`");
-                    options.area.height = DEFAULT_SIZE;
+                if (typeof options.canvas.height === 'undefined') {
+                    logger("You need to define the `height` sub-field in the options.canvas field. Creating it for you and defaulting it to `" + DEFAULT_SIZE + "`");
+                    options.canvas.height = DEFAULT_SIZE;
                 }
-                if (typeof options.area.width !== 'number') {
-                    logger("The `width` option must be a number type! Fixing it for you and defaulting it to "+DEFAULT_SIZE+"`");
-                    options.area.width = DEFAULT_SIZE;
+                if (typeof options.canvas.width !== 'number') {
+                    logger("The `width` option must be a number type! Fixing it for you and defaulting it to " + DEFAULT_SIZE + "`");
+                    options.canvas.width = DEFAULT_SIZE;
                 }
-                if (typeof options.area.height !== 'number') {
-                    logger("The `height` option must be a number type! Fixing it for you and defaulting it to "+DEFAULT_SIZE+"`");
-                    options.area.height = DEFAULT_SIZE;
+                if (typeof options.canvas.height !== 'number') {
+                    logger("The `height` option must be a number type! Fixing it for you and defaulting it to " + DEFAULT_SIZE + "`");
+                    options.canvas.height = DEFAULT_SIZE;
+                }
+
+                var defX = options.canvas.width / 2;
+                var defY = options.canvas.width / 2;
+
+                if (typeof options.canvas.x === 'undefined') {
+                    logger("You need to define the `x` sub-field in the options.canvas field. Creating it for you and defaulting it to `" + defX + "`");
+                    options.canvas.x = defX;
+                }
+                if (typeof options.canvas.y === 'undefined') {
+                    logger("You need to define the `y` sub-field in the options.canvas field. Creating it for you and defaulting it to `" + defY + "`");
+                    options.canvas.y = defY;
+                }
+                if (typeof options.canvas.x !== 'number') {
+                    logger("The `x` option must be a number type! Fixing it for you and defaulting it to " + defX + "`");
+                    options.canvas.x = defX;
+                }
+                if (typeof options.canvas.y !== 'number') {
+                    logger("The `y` option must be a number type! Fixing it for you and defaulting it to " + defY + "`");
+                    options.canvas.y = defY;
                 }
             }
             //Create the canvas dynamically and inject it in the DOM.
-            
-        this.canvas = createCanvas(options.canvasId , options.area.width, options.area.height );
-              dragElement(this.canvas);
+
+            this.canvas = createCanvas(options.canvasId, options.canvas.width, options.canvas.height,  options.canvas.x,  options.canvas.y);
+            dragElement(this.canvas);
         } else {//get canvas from the DOM
             this.canvas = document.getElementById(options.canvasId);
         }
@@ -3185,20 +3207,22 @@ function Clock(options) {
 
 }
 
-function createCanvas(canvasId, width, height) {
+function createCanvas(canvasId, width, height, x, y) {
     var canvas = document.createElement('canvas');
     canvas.id = canvasId;
     canvas.width = width;
     canvas.height = height;
     canvas.style.zIndex = 8;
     canvas.style.position = "absolute";
+    canvas.style.left = x+"px";
+    canvas.style.top = y+"px";
     canvas.style.border = "0px solid";
 
 
     var body = document.getElementsByTagName("body")[0];
     body.appendChild(canvas);
 
-return canvas;
+    return canvas;
 }
 
 Clock.prototype.run = function () {

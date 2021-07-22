@@ -4,8 +4,8 @@
     <head>
         <!-- Document Settings -->
         <meta charset="UTF-8"/>
-        <script type="text/javascript" src="clock/graphics.js" ></script>
-        <script type="text/javascript" src="clock/clock.js" ></script>
+        <script type="text/javascript" src="../../../../scripts/libs/personal/clock/graphics.js" ></script>
+        <script type="text/javascript" src="../../../../scripts/libs/personal/clock/clock.js" ></script>
         <!-- Page Meta -->
         <title>Clock Test - Landing Page</title>
         <meta name="description" content="CLOCKS"/>
@@ -33,7 +33,7 @@
                     middleColor: '#262626',
                     innerColor: '#000',
                     centerSpotWidth: 2,
-                    outerCircleAsFractionOfFrameSize: 1.0,
+                    outerCircleAsFractionOfFrameSize: 1.0,  
                     showBaseText: false
                 });
                 clock.run();
@@ -47,41 +47,15 @@
                     centerSpotWidth: 2,
                     outerCircleAsFractionOfFrameSize: 1.0,
                     showBaseText: false,
-                    area:{
+                    canvas: {
+                        x: 100,
+                        y: 100,
                         width: 800,
                         height:800
                     }
                 });
                 clock2.run();
-              /*  
-                    var clock2 = new Clock({
-                    canvasId: 'clock-3',
-                    outerColor: 'transparent',
-                    middleColor: '#262626',
-                    innerColor: '#000',
-                    centerSpotWidth: 2,
-                    outerCircleAsFractionOfFrameSize: 1,
-                    showBaseText: true
-                });
-                clock2.run();
-                */
-                
-/*
-                var clock2 = new Clock({
-                    canvasId: 'clock-2',
-                    outerColor: 'transparent',
-                    middleColor: '#262626',
-                    innerColor: '#000',
-                    centerSpotWidth: 2,
-                    outerCircleAsFractionOfFrameSize: 1,
-                    showBaseText: true
-                });
-                clock2.run();
-                
-                setTimeout(function() {
-                    clock.kill();
-                }, 5000);
-              */  
+
                 
             });
 
