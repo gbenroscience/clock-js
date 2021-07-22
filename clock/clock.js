@@ -11,6 +11,7 @@
  */
 
 
+const DEBUG = true;
 function logger(txt) {
     if (DEBUG === true) {
         console.log(txt);
@@ -1725,8 +1726,6 @@ const HandType = {
     SECONDHAND: "second"
 };
 
-const DEBUG = true;
-
 const CssSizeUnits = {
     EM: "em",
     PT: "pt",
@@ -3022,11 +3021,19 @@ function Clock(options) {
             dragElement(this.canvas);
         } else {//get canvas from the DOM
             this.canvas = document.getElementById(options.canvasId);
+            if(typeof this.canvas === 'undefined' || this.canvas === null){
+                logger("The `floating` field was set to false. You need to define the canvas element in your HTML code or specify `floating: true` in options to have the canvas element dynamically created");
+                return;
+            }
         }
         this.floating = options.floating;
+        
+            console.log("canvas: "+ this.canvas);
     } else {
         this.floating = false;
         this.canvas = document.getElementById(options.canvasId);
+        logger("No `floating` field defined. You need to define the canvas element in your HTML code or specify `floating: true` in options to have the canvas element dynamically created");
+        return;
     }
 
 
