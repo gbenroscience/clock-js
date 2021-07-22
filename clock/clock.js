@@ -11,8 +11,8 @@
  */
 
 
-function logger(txt){
-    if(DEBUG === true){
+function logger(txt) {
+    if (DEBUG === true) {
         console.log(txt);
     }
 }
@@ -1397,20 +1397,20 @@ EllipseModel.prototype.intersectsWith = function (ellipse) {
 
 
 function componentToHex(c) {
-  var hex = c.toString(16);
-  return hex.length === 1 ? "0" + hex : hex;
+    var hex = c.toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
 }
 
 function rgbToHex(r, g, b) {
-  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : null;
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
 }
 
 
@@ -1637,47 +1637,47 @@ function equals(num1, num2) {
     return Math.abs(Math.abs(num1) - Math.abs(num2)) <= 1.0E-10;
 }
 
- 
+
 
 function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    /* if present, the header is where you move the DIV from:*/
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    /* otherwise, move the DIV from anywhere inside the DIV:*/
-    elmnt.onmousedown = dragMouseDown;
-  }
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById(elmnt.id + "header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+    } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+    }
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
 
-  function closeDragElement() {
-    /* stop moving when mouse button is released:*/
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+    function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
 }
 
 
@@ -1725,7 +1725,7 @@ const HandType = {
     SECONDHAND: "second"
 };
 
-const DEBUG = false;
+const DEBUG = true;
 
 const CssSizeUnits = {
     EM: "em",
@@ -2916,16 +2916,28 @@ function getErrorNotif(hh, mm, sec, description) {
 /**
  * {
  * canvasId: "xxxx",
+ * floating: true,
  * outerColor: "css-color",
  * middleColor: "css-color",
  * innerColor: "css-color",
  * centerSpotWidth: number,
  * outerCircleAsFractionOfFrameSize: float_zero_to_1,
- * showBaseText: false
+ * showBaseText: false,
+ * area:{
+ * width: 100,
+ * height: 100,
+ * }
  * 
  * 
  * 
  * }
+ * 
+ * You define the `floating` option when you dont want to add any code to the HTML DOM yourself.
+ * You are saying that the Clock should create its own canvas element, add it to the DOM and use it as its own drawing area.
+ * Whether or not you define the `floating` option, you must define the canvasId.
+ * If you define the `floating` option, the canvas id would be used as the DOM id of the dynamically created canvas added to the DOM
+ * If you do not define the `floating` option, the Clock will look (through the DOM) for a canvas having the specified canvasId and use it for its drawing area.
+ * 
  * @param {Object} options
  * @returns {Clock}
  */
@@ -2937,19 +2949,69 @@ function Clock(options) {
     this.innerColor = "#000";
     this.showBaseText = false;
 
+    var DEFAULT_SIZE = 150;
 
+
+// The canvas id must be specified, it is used as the DOM id of the canvas element
     if (options.canvasId) {
-        if (typeof options.canvasId === 'string') {
-            this.canvas = document.getElementById(options.canvasId);
-            dragElement(this.canvas);
-        } else {
+        if (typeof options.canvasId !== 'string') {
             logger("The field: `canvasId` must be a string");
             return;
         }
     } else {
-        logger("No field: `canvasId`");
+        logger("No field: `canvasId` This field is mandatory!");
         return;
     }
+
+//floating option defined, so pay attention!
+    if (typeof options.floating !== 'undefined') {
+        if (typeof options.floating !== 'boolean'){
+            logger("The field called: `floating` must be a `true` or a `false`. Clock not created");
+            return;
+        }
+        if (options.floating === true) {//creates own canvas and injects in the DOM
+            if (typeof options.area === 'undefined') {
+                logger("Please define the width and height of the canvas to be created for the clock as an options.area object. Currently setting the area to `100 X 100`");
+                var area = new Object();
+                area.width = DEFAULT_SIZE;
+                area.height = DEFAULT_SIZE;
+                options['area'] = area;
+            } else {
+                if (typeof options.area.width === 'undefined') {
+                    logger("You need to define the `width` sub-field in the options.area field. Creating it for you and defaulting it to `"+DEFAULT_SIZE+"`");
+                    options.area.width = DEFAULT_SIZE;
+                }
+                if (typeof options.area.height === 'undefined') {
+                    logger("You need to define the `height` sub-field in the options.area field. Creating it for you and defaulting it to `"+DEFAULT_SIZE+"`");
+                    options.area.height = DEFAULT_SIZE;
+                }
+                if (typeof options.area.width !== 'number') {
+                    logger("The `width` option must be a number type! Fixing it for you and defaulting it to "+DEFAULT_SIZE+"`");
+                    options.area.width = DEFAULT_SIZE;
+                }
+                if (typeof options.area.height !== 'number') {
+                    logger("The `height` option must be a number type! Fixing it for you and defaulting it to "+DEFAULT_SIZE+"`");
+                    options.area.height = DEFAULT_SIZE;
+                }
+            }
+            //Create the canvas dynamically and inject it in the DOM.
+            
+        this.canvas = createCanvas(options.canvasId , options.area.width, options.area.height );
+              dragElement(this.canvas);
+        } else {//get canvas from the DOM
+            this.canvas = document.getElementById(options.canvasId);
+        }
+        this.floating = options.floating;
+    } else {
+        this.floating = false;
+        this.canvas = document.getElementById(options.canvasId);
+    }
+
+
+
+
+
+
     if (options.outerCircleAsFractionOfFrameSize) {
         if (typeof options.outerCircleAsFractionOfFrameSize === 'number') {
             this.outerCircleAsFractionOfFrameSize = options.outerCircleAsFractionOfFrameSize;
@@ -3033,6 +3095,7 @@ function Clock(options) {
         logger("The field: `showBaseText` must be a Boolean(true|false)");
         return;
     }
+
 
     this.settingsOpened = false;
     this.alarms = [];
@@ -3122,19 +3185,35 @@ function Clock(options) {
 
 }
 
+function createCanvas(canvasId, width, height) {
+    var canvas = document.createElement('canvas');
+    canvas.id = canvasId;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.zIndex = 8;
+    canvas.style.position = "absolute";
+    canvas.style.border = "0px solid";
+
+
+    var body = document.getElementsByTagName("body")[0];
+    body.appendChild(canvas);
+
+return canvas;
+}
+
 Clock.prototype.run = function () {
     var clock = this;
     var interval = setInterval(function () {
         if (clock.end === false) {
             clock.draw();
-        }else{
-             clearInterval( interval  );
+        } else {
+            clearInterval(interval);
         }
     }, 700);
 };
 
 Clock.prototype.kill = function () {
-  this.end = true;
+    this.end = true;
 };
 
 Clock.prototype.getCenter = function () {
