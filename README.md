@@ -9,6 +9,12 @@ A simple vanilla(pure) Javascript library for adding wall clocks to your web app
 **clock-js** will make it trivial for web-devs to add clock functionality to web and Javascript apps.
 
 
+
+Here is an image of what the clock looks like:
+
+
+![Clock Should Show...lol](images/clock-1.png)
+
 ### Usage
 
 To add clock functionality to your webpage, **clock-js** needs a canvas element placed in the right place in the DOM(HTML code). For instance,
@@ -107,11 +113,6 @@ If  you do not add the `floating` field at all or you set it to false, then you 
 **For example:**
 
   `<canvas id="clock-1" style="float: left; margin-left: 10px; width: 10em; height: 10em;"></canvas>`
-
-Here is an image of what the clock looks like:
-
-
-![Clock Should Show...lol](images/clock-1.png)
 
 
 Stay tuned as we add more features to this library;
