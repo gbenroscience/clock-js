@@ -19,15 +19,20 @@
         <script>
             document.addEventListener("DOMContentLoaded", function (event) {
                 var clock = new Clock({
-                floating: false,
-                canvasId: 'clock-1',
-                outerColor: 'transparent',
-                middleColor: '#262626',
-                innerColor: '#000',
-                centerSpotWidth: 2,
-                outerCircleAsFractionOfFrameSize: 1.0,
-                showBaseText: false
+                    canvasId: 'clock-1',
+                    floating: false,
+                    outerColor: 'transparent',
+                    middleColor: 'white',
+                    innerColor: 'lightgray',
+                    tickColor: 'black',
+                    secondsColor: "red",
+                    minutesColor: 'black',
+                    hoursColor: 'black',
+                    centerSpotWidth: 2,
+                    outerCircleAsFractionOfFrameSize: 1.0,
+                    showBaseText: true
                 });
+
                 clock.run();
                 
                  var clock2 = new Clock({

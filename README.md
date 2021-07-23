@@ -40,6 +40,8 @@ Here are the options that can be passed to the clock constructor, though this ma
                         height: 100
                     }
                 }
+                
+                Note that css-color shou
 
 To add clock functionality to your webpage, **clock-js** needs a canvas element placed in the right place in the DOM(HTML code). For instance,
 

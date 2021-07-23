@@ -418,7 +418,7 @@ Line.prototype.draw = function (id, x1, x2, color, thickness) {
         ctx.lineTo(x2, y2);
         ctx.stroke();
     } else {
-        console.log("Invalid Line draw args");
+        logger("Invalid Line draw args");
     }
 
 
@@ -903,7 +903,7 @@ Rectangle.prototype.draw = function (canvasId, color, thickness) {
         ctx.rect(this.left, this.top, this.width, this.height);
         ctx.stroke();
     } else {
-        console.log("Invalid Line draw args");
+        logger("Invalid Line draw args");
     }
 
 
@@ -922,7 +922,7 @@ Rectangle.prototype.fill = function (canvasId, color, thickness) {
         ctx.fillRect(this.left, this.top, this.width, this.height);
         ctx.stroke();
     } else {
-        console.log("Invalid Rectangle draw args");
+        logger("Invalid Rectangle draw args");
     }
 
 
@@ -2037,7 +2037,7 @@ ClockHand.prototype.draw = function (g, clockFrame) {
     var leftTip = this.leftTipCoords(clockFrame);
     var rightTip = this.rightTipCoords(clockFrame);
 
-    g.setColor(color);
+    g.setColor(this.color);
 
     g.drawLine(topTip.x, topTip.y, leftTip.x, leftTip.y);
     g.drawLine(topTip.x, topTip.y, cen.x, cen.y);
@@ -2957,9 +2957,11 @@ function Clock(options) {
     this.innerColor = "#000";
     this.tickColor = "#fff";
     this.showBaseText = false;
-    this.secondsColor = "#f00";
-    this.minutesColor = "#bbb";
-    this.hoursColor = "#bbb";
+    
+    
+    var secondsColor = "#f00";
+    var minutesColor = "#bbb";
+    var hoursColor = "#bbb";
     
 
 
@@ -3141,42 +3143,42 @@ function Clock(options) {
        if (options.secondsColor) {
         if (typeof options.secondsColor === 'string') {
             //The color of the clock's seconds hand
-            this.secondsColor = options.secondsColor;
+            secondsColor = options.secondsColor;
         } else {
             logger("The field: `secondsColor` must be a string");
             return;
         }
     } else {
         logger("No field: `secondsColor`");
-        this.secondsColor = "#f00";
+             secondsColor = "#f00";
     }
     
      
        if (options.minutesColor) {
         if (typeof options.minutesColor === 'string') {
             //The color of the clock's minute hand
-            this.minutesColor = options.minutesColor;
+             minutesColor = options.minutesColor;
         } else {
             logger("The field: `minutesColor` must be a string");
             return;
         }
     } else {
         logger("No field: `minutesColor`");
-        this.minutesColor = "#bbb";
+             minutesColor = "#bbb";
     }
     
      
        if (options.hoursColor) {
         if (typeof options.hoursColor === 'string') {
             //The color of the clock's hour hand
-            this.hoursColor = options.hoursColor;
+             hoursColor = options.hoursColor;
         } else {
             logger("The field: `hoursColor` must be a string");
             return;
         }
     } else {
         logger("No field: `hoursColor`");
-        this.hoursColor = "#bbb";
+           hoursColor = "#bbb";
     }
     
 
@@ -3235,16 +3237,15 @@ function Clock(options) {
     /**
      * The seconds hand;
      */
-    this.secondsHand = new ClockHand(HandType.SECONDHAND, 0.82 * this.outerCircleAsFractionOfFrameSize, 0, this.secondsColor);
+    this.secondsHand = new ClockHand(HandType.SECONDHAND, 0.82 * this.outerCircleAsFractionOfFrameSize, 0, secondsColor);
     /**
      * The minute hand;
      */
-    this.minuteHand = new ClockHand(HandType.MINUTEHAND, 0.8 * this.outerCircleAsFractionOfFrameSize, 1, this.minutesColor);
+    this.minuteHand = new ClockHand(HandType.MINUTEHAND, 0.8 * this.outerCircleAsFractionOfFrameSize, 1, minutesColor);
     /**
      * The hour hand;
      */
-    this.hourHand = new ClockHand(HandType.HOURHAND, 0.6 * this.outerCircleAsFractionOfFrameSize, 2, this.hoursColor);
-
+    this.hourHand = new ClockHand(HandType.HOURHAND, 0.6 * this.outerCircleAsFractionOfFrameSize, 2,  hoursColor);
     this.location = new Point();
 
     var i = 0;
@@ -3387,6 +3388,7 @@ var g = this.g;
     this.secondsHand.fill(g, this);
     this.minuteHand.fill(g, this);
     this.hourHand.fill(g, this);
+
 
     this.secondsHand.getAngleForEachState();
     this.minuteHand.getAngleForEachState();
