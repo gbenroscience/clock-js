@@ -17,6 +17,30 @@ Here is an image of what the clock looks like:
 
 ### Usage
 
+
+Here are the options that can be passed to the clock constructor, though this may change over time:
+
+                 {
+                    canvasId: "xxxx",
+                    floating: true,
+                    outerColor: "css-color",
+                    middleColor: "css-color",
+                    innerColor: "css-color",
+                    tickColor: "css-color",
+                    secondsColor: "css-color",
+                    minutesColor: "css-color",
+                    hourColor: "css-color",
+                    centerSpotWidth: number,
+                    outerCircleAsFractionOfFrameSize: float_zero_to_1,
+                    showBaseText: false,
+                    canvas: {
+                        x: 100,
+                        y: 100,
+                        width: 100,
+                        height: 100
+                    }
+                }
+
 To add clock functionality to your webpage, **clock-js** needs a canvas element placed in the right place in the DOM(HTML code). For instance,
 
   `<canvas id="clock-1" style="float: left; margin-left: 10px; width: 10em; height: 10em;"></canvas>`

@@ -2922,6 +2922,10 @@ function getErrorNotif(hh, mm, sec, description) {
  * outerColor: "css-color",
  * middleColor: "css-color",
  * innerColor: "css-color",
+ * tickColor: "css-color",
+ * secondsColor: "css-color",
+ * minutesColor: "css-color",
+ * hourColor: "css-color",
  * centerSpotWidth: number,
  * outerCircleAsFractionOfFrameSize: float_zero_to_1,
  * showBaseText: false,
@@ -2951,7 +2955,12 @@ function Clock(options) {
     this.outerColor = "transparent";
     this.middleColor = "#262626";
     this.innerColor = "#000";
+    this.tickColor = "#fff";
     this.showBaseText = false;
+    this.secondsColor = "#f00";
+    this.minutesColor = "#bbb";
+    this.hoursColor = "#bbb";
+    
 
 
 // The canvas id must be specified, it is used as the DOM id of the canvas element
@@ -3114,6 +3123,62 @@ function Clock(options) {
         logger("No field: `innerColor`");
         this.innerColor = "#000";
     }
+    
+       if (options.tickColor) {
+        if (typeof options.tickColor === 'string') {
+            //The color of the clock's ticks and text
+            this.tickColor = options.tickColor;
+        } else {
+            logger("The field: `tickColor` must be a string");
+            return;
+        }
+    } else {
+        logger("No field: `tickColor`");
+        this.tickColor = "#000";
+    }
+    
+     
+       if (options.secondsColor) {
+        if (typeof options.secondsColor === 'string') {
+            //The color of the clock's seconds hand
+            this.secondsColor = options.secondsColor;
+        } else {
+            logger("The field: `secondsColor` must be a string");
+            return;
+        }
+    } else {
+        logger("No field: `secondsColor`");
+        this.secondsColor = "#f00";
+    }
+    
+     
+       if (options.minutesColor) {
+        if (typeof options.minutesColor === 'string') {
+            //The color of the clock's minute hand
+            this.minutesColor = options.minutesColor;
+        } else {
+            logger("The field: `minutesColor` must be a string");
+            return;
+        }
+    } else {
+        logger("No field: `minutesColor`");
+        this.minutesColor = "#bbb";
+    }
+    
+     
+       if (options.hoursColor) {
+        if (typeof options.hoursColor === 'string') {
+            //The color of the clock's hour hand
+            this.hoursColor = options.hoursColor;
+        } else {
+            logger("The field: `hoursColor` must be a string");
+            return;
+        }
+    } else {
+        logger("No field: `hoursColor`");
+        this.hoursColor = "#bbb";
+    }
+    
 
     if (typeof options.showBaseText === 'undefined') {
         logger("No field: `showBaseText`");
@@ -3170,15 +3235,15 @@ function Clock(options) {
     /**
      * The seconds hand;
      */
-    this.secondsHand = new ClockHand(HandType.SECONDHAND, 0.82 * this.outerCircleAsFractionOfFrameSize, 0, "#f00");
+    this.secondsHand = new ClockHand(HandType.SECONDHAND, 0.82 * this.outerCircleAsFractionOfFrameSize, 0, this.secondsColor);
     /**
      * The minute hand;
      */
-    this.minuteHand = new ClockHand(HandType.MINUTEHAND, 0.8 * this.outerCircleAsFractionOfFrameSize, 1, "#bbb");
+    this.minuteHand = new ClockHand(HandType.MINUTEHAND, 0.8 * this.outerCircleAsFractionOfFrameSize, 1, this.minutesColor);
     /**
      * The hour hand;
      */
-    this.hourHand = new ClockHand(HandType.HOURHAND, 0.6 * this.outerCircleAsFractionOfFrameSize, 2, "#bbb");
+    this.hourHand = new ClockHand(HandType.HOURHAND, 0.6 * this.outerCircleAsFractionOfFrameSize, 2, this.hoursColor);
 
     this.location = new Point();
 
@@ -3186,9 +3251,9 @@ function Clock(options) {
     for (var angle = 0; i < 60; i++) {
 
         if (i % 5 === 0) {
-            this.ticks[i] = new Tick(0.1, angle, "#fff", 2, true);
+            this.ticks[i] = new Tick(0.1, angle,  this.tickColor, 2, true);
         } else {
-            this.ticks[i] = new Tick(0.04, angle, "#fff", 2, false);
+            this.ticks[i] = new Tick(0.04, angle,  this.tickColor, 2, false);
         }
         angle += (6 * Math.PI / 180);
     }//end for
