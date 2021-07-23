@@ -113,7 +113,7 @@ Here is an image of what the clock looks like:
 <img
 src=“images/clock-1.png”
 raw=true
-alt=“Subject Pronouns”
+alt=“Clock Shoud=ld Show...lol”
 style=“margin-right: 10px;”
 />
 
