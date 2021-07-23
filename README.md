@@ -111,7 +111,7 @@ If  you do not add the `floating` field at all or you set it to false, then you 
 Here is an image of what the clock looks like:
 
 <img
-src=“./clock-1.png”
+src=“clock-1.png”
 raw=true
 alt=“Clock Should Show...lol”
 style=“margin-right: 10px;”
