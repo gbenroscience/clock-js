@@ -108,7 +108,14 @@ If  you do not add the `floating` field at all or you set it to false, then you 
 
   `<canvas id="clock-1" style="float: left; margin-left: 10px; width: 10em; height: 10em;"></canvas>`
 
+Here is an image of what the clock looks like:
 
+<img
+src=“images/clock-1.png”
+raw=true
+alt=“Subject Pronouns”
+style=“margin-right: 10px;”
+/>
 
 
 
