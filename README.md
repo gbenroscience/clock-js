@@ -41,7 +41,7 @@ Here are the options that can be passed to the clock constructor, though this ma
                     }
                 }
                 
-                Note that css-color shou
+                Note that css-color should be an hexadecimal string e.g: #444 or #45FF22
 
 To add clock functionality to your webpage, **clock-js** needs a canvas element placed in the right place in the DOM(HTML code). For instance,
 
