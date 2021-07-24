@@ -97,7 +97,7 @@ The clock will run for 10 seconds and then stop running, due to the **`setTimeou
 
 This is how easy it is to deploy the clock
 
-If you want a clock that floats on your page, specify the `floating` field in your clock's options, and set it to true. In this case, yo need not add the canvas element to your code. The clock will dynamically create a canvas object and inject it in your HTML code.
+If you want a clock that floats on your page, specify the `floating` field in your clock's options, and set it to true. In this case, you need not add the canvas element to your code. The clock will dynamically create a canvas object and inject it in your HTML code.
 
 You may customize the dynamically created object by specifying the canvas entry:
 
