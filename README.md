@@ -1,7 +1,7 @@
 # clock-js
 A simple vanilla(pure) Javascript library for adding wall clocks to your web application
 
-**clock-js** allows you to add a wall-clock to your we application with ease.
+**clock-js** allows you to add a wall-clock to your web application with ease.
 
 ### Background
 **clock-js** is the javascript translation of [simple-desk-clock](https://github.com/gbenroscience/simple-desk-clock) a Java application by the same author.
