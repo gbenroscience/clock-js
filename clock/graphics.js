@@ -89,8 +89,8 @@ Polygon.prototype.addPoints = function (xpts, ypts) {
     }
 
     if (xpts.length === ypts.length) {
-        this.xpoints.push.apply(xpts);
-        this.ypoints.push.apply(ypts);
+        Array.prototype.push.apply(this.xpoints , xpts);
+        Array.prototype.push.apply(this.ypoints, ypts);
         this.npoints += xpts.length;
     } else {
         logger('xpts and ypts must have the same length');
