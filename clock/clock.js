@@ -9,7 +9,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+/* global FontStyle, CssSizeUnits */
 
 const DEBUG = true;
 // The default width and height of an auto-generated canvas to e used for the clock
@@ -1705,36 +1705,12 @@ function dragElement(elmnt) {
 
 //clock code here
 
-
-
-
-
-
-
-
-
-
-
-
 var win = window,
         doc = document,
         docElem = doc.documentElement,
         body = doc.getElementsByTagName('body')[0],
         screenWidth = win.innerWidth || docElem.clientWidth || body.clientWidth,
         screenHeight = win.innerHeight || docElem.clientHeight || body.clientHeight;
-
-const HandType = {
-    HOURHAND: "hour",
-    MINUTEHAND: "minute",
-    SECONDHAND: "second"
-};
-
-const CssSizeUnits = {
-    EM: "em",
-    PT: "pt",
-    PX: "px"
-};
-
 
 
 const ALARM_DURATION_IN_MINUTES = 1;
@@ -2271,13 +2247,13 @@ Tick.prototype.draw = function (g, clock) {
 
 
     if (clock.tickTextFont === null) {//italic bold 10pt Courier
-        clock.tickTextFont = new Font('italic bold', fontSz, 'Gothic', CssSizeUnits.EM);
+        clock.tickTextFont = new Font(FontStyle.BOLD_ITALIC, fontSz, 'Gothic', CssSizeUnits.EM);
     }
     if (clock.topTextFont === null) {
-        clock.topTextFont = new Font("bold", fontSz, 'Times New Roman', CssSizeUnits.EM);
+        clock.topTextFont = new Font(FontStyle.BOLD, fontSz, 'Times New Roman', CssSizeUnits.EM);
     }
     if (clock.bottomTextFont === null) {
-        clock.bottomTextFont = new Font("bold", fontSz, 'Times New Roman', CssSizeUnits.EM);
+        clock.bottomTextFont = new Font(FontStyle.BOLD, fontSz, 'Times New Roman', CssSizeUnits.EM);
     }
 
     clock.tickTextFont.size = fontSz;
@@ -2519,7 +2495,7 @@ Bubble.prototype.getFont = function (clock) {
         var fontSz = clock.getTextFontSize();
 
         var alarmFontSz = (0.85 * fontSz);
-        var alarmTextFont = new Font("", alarmFontSz, "Times New Roman", CssSizeUnits.EM);
+        var alarmTextFont = new Font(FontStyle.REGULAR, alarmFontSz, "Times New Roman", CssSizeUnits.EM);
         return alarmTextFont;
     }
 
@@ -3228,9 +3204,9 @@ function Clock(options) {
 
 
 
-    this.tickTextFont = new Font('italic bold', 0.9, 'Gothic', CssSizeUnits.EM);
-    this.topTextFont = new Font('bold', 0.9, 'Times New Roman', CssSizeUnits.EM);
-    this.bottomTextFont = new Font('bold', 0.9, 'Papyrus', CssSizeUnits.EM);
+    this.tickTextFont = new Font(FontStyle.BOLD_ITALIC, 0.9, 'Gothic', CssSizeUnits.EM);
+    this.topTextFont = new Font(FontStyle.BOLD, 0.9, 'Times New Roman', CssSizeUnits.EM);
+    this.bottomTextFont = new Font(FontStyle.BOLD, 0.9, 'Papyrus', CssSizeUnits.EM);
 
 
 
