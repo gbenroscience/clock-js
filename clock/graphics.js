@@ -105,7 +105,6 @@ Polygon.prototype.addPoints = function (xpts, ypts) {
         Array.prototype.push.apply(this.xpoints , xpts);
         Array.prototype.push.apply(this.ypoints, ypts);
         this.npoints += xpts.length;
-        this.npoints += xpts.length;
     } else {
         logger('xpts and ypts must have the same length');
     }
