@@ -1712,6 +1712,11 @@ var win = window,
         screenWidth = win.innerWidth || docElem.clientWidth || body.clientWidth,
         screenHeight = win.innerHeight || docElem.clientHeight || body.clientHeight;
 
+        const HandType = {
+            HOURHAND: "hour",
+            MINUTEHAND: "minute",
+            SECONDHAND: "second"
+        };
 
 const ALARM_DURATION_IN_MINUTES = 1;
 
